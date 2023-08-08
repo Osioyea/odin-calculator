@@ -34,6 +34,7 @@ body{
   height: 8rem;
   text-align: end;
   font-family: Arial, Helvetica, sans-serif;
+  color: #ccc;
 }
 
 .buttons{
@@ -72,12 +73,14 @@ body{
   font-weight: bold;
 }
 
-.operation{
+.lastOperation{
   font-size: 1.5rem;
-  color: #ccc;
 }
 
-.result{
+.currentOperation{
   font-size: 3rem;
+}
+
+.answer{
   color: limegreen;
 }
