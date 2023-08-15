@@ -14,7 +14,7 @@ const operators = document.querySelectorAll('.operator');
 
 clearAll.addEventListener('click', () => {reset();});
 clearOne.addEventListener('click', () => {removeOne();});
-decimal.addEventListener('click', () => {testDisplay();});
+decimal.addEventListener('click', () => {addDecimal();});
 equals.addEventListener('click', () => {calculate(operate(firstInput, operator, secondInput))});
 
 numbers.forEach((item) => {
@@ -58,6 +58,7 @@ function updateLastOperation(){
 }
 
 function calculate(input){
+  if(firstInput == "" || operator == "" || secondInput == "") return;
   updateLastOperation();
   clearInputs();
   updateDisplayedOperation();
@@ -76,12 +77,22 @@ function updateDisplayedOperation(){
   displayedOperation.textContent = operator + " " + secondInput;
 }
 
-function testDisplay(){
-  console.log(
-    "first input: " + firstInput,
-    "\nsecond input: " + secondInput,
-    "\noperator: " + operator
-  );
+function addDecimal(){
+  if(secondInput != ""){
+    if(secondInput.indexOf(".") == -1){
+      secondInput += ".";
+    }
+    updateDisplayedOperation();
+    return;
+  }
+  if(firstInput != "" && operator == ""){
+    if(firstInput.indexOf(".") == -1){
+      firstInput += ".";
+    }
+    updateAnswer("");
+    updateDisplayedOperation();
+    return
+  }
 }
 
 function reset(){
