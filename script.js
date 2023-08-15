@@ -13,8 +13,8 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 
 clearAll.addEventListener('click', () => {reset();});
-clearOne.addEventListener('click', () => {console.log("bruh");});
-decimal.addEventListener('click', () => {console.log("bruh");});
+clearOne.addEventListener('click', () => {testDisplay();});
+decimal.addEventListener('click', () => {testDisplay();});
 equals.addEventListener('click', () => {updateAnswer(operate(firstInput, operator, secondInput))});
 
 numbers.forEach((item) => {
@@ -26,29 +26,50 @@ operators.forEach((item) => {
 })
 
 function editNumbers(input){
-  if(operator == "")
+  if(operator == ""){
+    if(firstInput == "0"){
+      firstInput = "";
+    }
     firstInput += input;
-  else
+    answer.textContent = "";
+  }
+  else{
+    if(secondInput == "0"){
+      secondInput = "";
+    }
     secondInput += input;
+  }
   updateDisplayedOperation();
 }
 
 function editOperator(input){
-  if(firstInput != "" && secondInput == "")
+  if(firstInput != "" && secondInput == ""){
     operator = input;
+  }
+  else if(firstInput != "" && secondInput != ""){
+    updateAnswer(operate(firstInput, operator, secondInput));
+    operator = input;
+  }
   updateDisplayedOperation();
 }
 
 function updateLastOperation(){
-
+  lastOperation.textContent = answer.textContent + " " + displayedOperation.textContent + " =";
 }
 
 function updateAnswer(input){
-
+  updateLastOperation();
+  clearInputs();
+  updateDisplayedOperation();
+  answer.textContent = input;
+  firstInput = answer.textContent;
 }
 
 function updateDisplayedOperation(){
+  if(answer.textContent == "")
   displayedOperation.textContent = firstInput + " " + operator + " " + secondInput;
+  else
+  displayedOperation.textContent = operator + " " + secondInput;
 }
 
 function testDisplay(){
@@ -60,7 +81,7 @@ function testDisplay(){
 }
 
 function reset(){
-  lastOperation.textContent = " ";
+  lastOperation.textContent = "";
   answer.textContent = "";
   displayedOperation.textContent = "";
   clearInputs();
@@ -96,6 +117,7 @@ function operate(firstNumber, operation, secondNumber){
       result = power(firstNumber, secondNumber);
       break
   }
+  result = Math.round(result * 100000) / 100000;
   return result;
 }
 
@@ -123,6 +145,3 @@ function mod(a, b){
 function power(a, b){
   return Math.pow(a,b);
 }
-
-console.log(operate(firstInput, operator, secondInput));
-console.log(typeof firstInput);
