@@ -18,12 +18,13 @@ body{
   justify-content: end;
   align-items: center;
   width: 350px;
-  height: 603px;
+  min-height: 603px;
   background-color: #444;
   border-color: black;
   border-style: solid;
   border-radius: 2rem;
   gap: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .screen{
@@ -31,10 +32,11 @@ body{
   width: 90%;
   border-radius: 1rem;
   padding: 1.5rem 1rem;
-  height: 8rem;
+  min-height: 8.625rem;
   text-align: end;
   font-family: Arial, Helvetica, sans-serif;
   color: #ccc;
+  word-break: break-all;
 }
 
 .buttons{
@@ -78,7 +80,7 @@ body{
 }
 
 .currentOperation{
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .answer{
