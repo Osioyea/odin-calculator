@@ -13,9 +13,9 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 
 clearAll.addEventListener('click', () => {reset();});
-clearOne.addEventListener('click', () => {testDisplay();});
+clearOne.addEventListener('click', () => {removeOne();});
 decimal.addEventListener('click', () => {testDisplay();});
-equals.addEventListener('click', () => {updateAnswer(operate(firstInput, operator, secondInput))});
+equals.addEventListener('click', () => {calculate(operate(firstInput, operator, secondInput))});
 
 numbers.forEach((item) => {
   item.addEventListener('click', () => {editNumbers(item.innerText);});
@@ -47,7 +47,7 @@ function editOperator(input){
     operator = input;
   }
   else if(firstInput != "" && secondInput != ""){
-    updateAnswer(operate(firstInput, operator, secondInput));
+    calculate(operate(firstInput, operator, secondInput));
     operator = input;
   }
   updateDisplayedOperation();
@@ -57,12 +57,16 @@ function updateLastOperation(){
   lastOperation.textContent = answer.textContent + " " + displayedOperation.textContent + " =";
 }
 
-function updateAnswer(input){
+function calculate(input){
   updateLastOperation();
   clearInputs();
   updateDisplayedOperation();
-  answer.textContent = input;
+  updateAnswer(input);
   firstInput = answer.textContent;
+}
+
+function updateAnswer(input){
+  answer.textContent = input;
 }
 
 function updateDisplayedOperation(){
@@ -85,6 +89,25 @@ function reset(){
   answer.textContent = "";
   displayedOperation.textContent = "";
   clearInputs();
+}
+
+function removeOne(){
+  if(secondInput != ""){
+    secondInput = secondInput.slice(0, -1);
+    updateDisplayedOperation();
+    return
+  }
+  if(operator != ""){
+    operator = operator.slice(0, -1);
+    updateDisplayedOperation();
+    return
+  }
+  if(firstInput != ""){
+    updateAnswer("");
+    firstInput = firstInput.slice(0, -1);
+    updateDisplayedOperation();
+    return
+  }
 }
 
 function clearInputs(){
